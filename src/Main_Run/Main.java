@@ -3,6 +3,7 @@ package Main_Run;
 import IO_File.FileManager;
 import Model.ModelManager;
 import Model.SinhVien;
+import Model.TaiKhoan;
 import UI.Form_Login;
 
 public class Main {
@@ -13,12 +14,12 @@ public class Main {
 		Form_Login form_Login=new Form_Login();
 		form_Login.setVisible(true);
 		
-		boolean kt=FileManager.DocFileSinhVien("Class17hcb.csv");
-		if(ModelManager.DSSV.size()>0) {
-			for(SinhVien sv:ModelManager.DSSV) {
-				System.out.println(sv.getSTT()+""+sv.getMSSV()+sv.getHoten()+sv.getGioitinh()+sv.getCMND());
-			}
-		}
+		
+//		if(ModelManager.DSTK.size()>0) {
+//			for(TaiKhoan tk:ModelManager.DSTK) {
+//				System.out.println(tk.getUsername()+tk.getPassword()+tk.getType());
+//			}
+//		}
 	}
 
 }
