@@ -51,6 +51,7 @@ public class FormQuanLy extends JFrame {
 	 * Create the frame.
 	 */
 	public FormQuanLy() {
+		setTitle("Giáo Vụ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 887, 492);
 		contentPane = new JPanel();
@@ -117,8 +118,12 @@ public class FormQuanLy extends JFrame {
 		scrollPane.setViewportView(table_1);
 		
 		JButton btnthem = new JButton("Thêm");
-		btnthem.setBounds(338, 354, 89, 23);
+		btnthem.setBounds(214, 353, 89, 23);
 		panel.add(btnthem);
+		
+		JButton btnXoa = new JButton("Xóa");
+		btnXoa.setBounds(418, 353, 89, 23);
+		panel.add(btnXoa);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Thời Khóa Biểu", null, panel_1, null);
