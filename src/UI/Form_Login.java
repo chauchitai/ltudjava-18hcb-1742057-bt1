@@ -24,6 +24,8 @@ public class Form_Login extends JFrame {
 	private JTextField txtusername;
 	public JButton btnlogin;
 	private JPasswordField txtpassword;
+	private JLabel lblngNhp;
+	private JButton btbdoimk;
 //
 	/**
 	 * Launch the application.
@@ -46,32 +48,46 @@ public class Form_Login extends JFrame {
 	 */
 	public Form_Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 394, 295);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(10, 27, 78, 14);
+		lblUsername.setBounds(23, 85, 78, 14);
 		contentPane.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(10, 85, 65, 14);
+		lblPassword.setBounds(23, 129, 65, 14);
 		contentPane.add(lblPassword);
 		
 		txtusername = new JTextField();
-		txtusername.setBounds(64, 24, 209, 20);
+		txtusername.setBounds(115, 82, 209, 20);
 		contentPane.add(txtusername);
 		txtusername.setColumns(10);
 		
-		 btnlogin = new JButton("login");
-		btnlogin.setBounds(115, 132, 89, 23);
+		 btnlogin = new JButton("Login");
+		btnlogin.setBounds(79, 182, 89, 23);
 		contentPane.add(btnlogin);
 		
 		txtpassword = new JPasswordField();
-		txtpassword.setBounds(82, 82, 191, 20);
+		txtpassword.setBounds(115, 126, 209, 20);
 		contentPane.add(txtpassword);
+		
+		lblngNhp = new JLabel("ĐĂNG NHẬP");
+		lblngNhp.setBounds(167, 33, 89, 14);
+		contentPane.add(lblngNhp);
+		
+		btbdoimk = new JButton("Đổi Mật Khẩu");
+		btbdoimk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			FormDoiMK  MK= new FormDoiMK();
+			MK.show();
+			}
+		});
+		btbdoimk.setBounds(201, 182, 123, 23);
+		contentPane.add(btbdoimk);
 		addEvent();
 		addControll();
 	}
@@ -95,7 +111,8 @@ public class Form_Login extends JFrame {
 				String password=txtpassword.getText().trim();
 				boolean kt=CheckLogin(username,password);
 				if(kt) {
-					System.out.println("LOGIN THANH CONG");
+					System.out.println("LOGIN THANH CONG");	
+				
 				}else {
 					System.out.println("LOGIN THAT BAI");
 				}
