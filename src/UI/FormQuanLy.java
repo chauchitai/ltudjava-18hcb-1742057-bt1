@@ -2,11 +2,23 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
+import IO_File.FileManager;
+import Model.ModelManager;
+import Model.SinhVien;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -30,6 +42,13 @@ public class FormQuanLy extends JFrame {
 	private JTextField txtkhac;
 	private JTextField txttong;
 	private JTextField txtlop;
+	DefaultTableModel defaultTableModelLop;
+	public ArrayList<SinhVien>dssv;
+	JRadioButton rdnam, rdnu;
+	JButton btnthem;
+	JComboBox comboBoxClass;
+	DefaultComboBoxModel defaultComboBoxClass;
+	String dataComboboxLop="";
 
 	/**
 	 * Launch the application.
@@ -98,11 +117,11 @@ public class FormQuanLy extends JFrame {
 		txtcmnd.setBounds(463, 77, 170, 20);
 		panel.add(txtcmnd);
 		
-		JRadioButton rdnam = new JRadioButton("Nam");
+		 rdnam = new JRadioButton("Nam");
 		rdnam.setBounds(479, 34, 58, 23);
 		panel.add(rdnam);
 		
-		JRadioButton rdnu = new JRadioButton("Nữ");
+		 rdnu = new JRadioButton("Nữ");
 		rdnu.setBounds(550, 34, 58, 23);
 		panel.add(rdnu);
 		
@@ -117,13 +136,30 @@ public class FormQuanLy extends JFrame {
 		table_1 = new JTable();
 		scrollPane.setViewportView(table_1);
 		
-		JButton btnthem = new JButton("Thêm");
+		String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+
+		defaultTableModelLop = new DefaultTableModel(col, 0);
+		                                            // The 0 argument is number rows.
+		table_1 = new JTable(defaultTableModelLop);
+		scrollPane.setViewportView(table_1);
+		
+        btnthem = new JButton("Thêm");
+		
 		btnthem.setBounds(214, 353, 89, 23);
 		panel.add(btnthem);
+		
+		//JButton btnthem = new JButton("Thêm");
+		//btnthem.setBounds(214, 353, 89, 23);
+		//panel.add(btnthem);
 		
 		JButton btnXoa = new JButton("Xóa");
 		btnXoa.setBounds(418, 353, 89, 23);
 		panel.add(btnXoa);
+		
+		String[] entries = { "17HCB", "18HCB"};
+		 comboBoxClass = new JComboBox(entries);
+		comboBoxClass.setBounds(550, 354, 149, 20);
+		panel.add(comboBoxClass);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Thời Khóa Biểu", null, panel_1, null);
@@ -238,7 +274,124 @@ public class FormQuanLy extends JFrame {
 		JScrollPane scrollPane_5 = new JScrollPane();
 		scrollPane_5.setBounds(52, 110, 687, 213);
 		panel_5.add(scrollPane_5);
+		addControll();
+		addEvent();
 		
+	}
+	private void addEvent() {
+		
+		
+		btnthem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				xulythem();
+			}
+		});
+		// TODO Auto-generated method stub
+		comboBoxClass.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				dataComboboxLop=(String) comboBoxClass.getSelectedItem();
+				ClearTable_sinhvien();
+				LoadDataFornTable();
+				
+			}
+		});
+		table_1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				int row=table_1.getSelectedRow();
+				int col=table_1.getSelectedColumn();
+				if(row>=0 && col>=0){
+					String stt=defaultTableModelLop.getValueAt(row, 0).toString();
+					String mssv=defaultTableModelLop.getValueAt(row, 1).toString();
+					String hoten=defaultTableModelLop.getValueAt(row, 2).toString();
+					String gioitinh=defaultTableModelLop.getValueAt(row, 3).toString();
+					String cmnd=defaultTableModelLop.getValueAt(row, 4).toString();
+					setValueSinhVien(stt,mssv,hoten,gioitinh,cmnd);
+				}
+				
+//				 JOptionPane.showMessageDialog(table_lop, "Row: "+stt+hoten);  
+				
+			}
+		});
+	}
+
+	
+
+	protected void xulythem() {
+		// TODO Auto-generated method stub
+		int stt=ModelManager.DSSV.size()+1;
+		String mssv=txtmssv.getText().trim();
+		String hoten=txtten.getText().trim();
+		String gioitinh="";
+		String cmnd=txtcmnd.getText().trim();
+		if(rdnam.isSelected()){
+			gioitinh="nam";
+		}
+		if(rdnu.isSelected()){
+			gioitinh="nu";
+		}
+		SinhVien sv=new SinhVien(stt, mssv, hoten, gioitinh, cmnd);
+		ModelManager.DSSV.add(sv);
+		if(dataComboboxLop.equals("17HCB")){
+			FileManager.GhiFileSinhVien("Class17hcb.csv");
+			FileManager.DocFileSinhVien("Class17hcb.csv");
+		}
+		if(dataComboboxLop.equals("18HCB")){
+			FileManager.GhiFileSinhVien("18HCB.csv");
+			FileManager.DocFileSinhVien("18HCB.csv");
+		}
+		
+		ClearTable_sinhvien();
+		LoadDataFornTable();
+		
+	}
+    public void ClearTable_sinhvien(){
+    	String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+
+		defaultTableModelLop = new DefaultTableModel(col,0);
+		                                            // The 0 argument is number rows.
+		table_1.setModel(defaultTableModelLop);
+    }
+	protected void setValueSinhVien(String stt, String mssv, String hoten, String gioitinh, String cmnd) {
+		// TODO Auto-generated method stub
+		txtmssv.setText(mssv);
+		txtten.setText(hoten);
+		txtcmnd.setText(cmnd);
+		if(gioitinh.equals("nam")){
+			rdnam.setSelected(true);
+			rdnu.setSelected(false);
+		}if(gioitinh.equals("nu")){
+			rdnam.setSelected(false);
+			rdnu.setSelected(true);
+		}
+	}
+
+	private void addControll() {
+		dataComboboxLop=(String) comboBoxClass.getSelectedItem();
+		System.out.println(dataComboboxLop);
+		dssv=new ArrayList<>();
+		LoadDataFornTable();
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void LoadDataFornTable() {
+		
+		// TODO Auto-generated method stub
+		    if(dataComboboxLop.equals("17HCB")){
+		    	FileManager.DocFileSinhVien("Class17hcb.csv");
+		    }if(dataComboboxLop.equals("18HCB")){
+		    	FileManager.DocFileSinhVien("18HCB.csv");
+		    }
+			
+			for(SinhVien sv:ModelManager.DSSV){
+				
+				Object[] data = {sv.getSTT()+"",sv.getMSSV(), sv.getHoten(), sv.getGioitinh(),sv.getCMND()};
+
+                defaultTableModelLop.addRow(data);
+			}
 		
 	}
 }
