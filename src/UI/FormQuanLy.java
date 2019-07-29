@@ -36,6 +36,7 @@ public class FormQuanLy extends JFrame {
 	private JTextField txtten;
 	private JTextField txtcmnd;
 	private JTable table_1;
+	private JTable table_schedule;
 	private JTextField txttenlop;
 	private JTextField txtgk;
 	private JTextField txtck;
@@ -49,6 +50,8 @@ public class FormQuanLy extends JFrame {
 	JComboBox comboBoxClass;
 	DefaultComboBoxModel defaultComboBoxClass;
 	String dataComboboxLop="";
+	String dataComboboxTkb="";
+
 
 	/**
 	 * Launch the application.
@@ -129,32 +132,38 @@ public class FormQuanLy extends JFrame {
 		buttonGroup.add(rdnam);
 		buttonGroup.add(rdnu);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(44, 134, 711, 196);
-		panel.add(scrollPane);
+		JScrollPane scrollPane_Student = new JScrollPane();
+		scrollPane_Student.setBounds(44, 134, 711, 196);
+		panel.add(scrollPane_Student);
 		
+		//variable table student
 		table_1 = new JTable();
+<<<<<<< HEAD
 		scrollPane.setViewportView(table_1);
-		
+	
 		String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+=======
+		scrollPane_Student.setViewportView(table_1);
+		
+		String col_student[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+>>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
 
-		defaultTableModelLop = new DefaultTableModel(col, 0);
+		defaultTableModelLop = new DefaultTableModel(col_student, 0);
 		                                            // The 0 argument is number rows.
 		table_1 = new JTable(defaultTableModelLop);
-		scrollPane.setViewportView(table_1);
+		scrollPane_Student.setViewportView(table_1);
 		
         btnthem = new JButton("Thêm");
 		
 		btnthem.setBounds(214, 353, 89, 23);
 		panel.add(btnthem);
 		
-		//JButton btnthem = new JButton("Thêm");
-		//btnthem.setBounds(214, 353, 89, 23);
-		//panel.add(btnthem);
-		
 		JButton btnXoa = new JButton("Xóa");
 		btnXoa.setBounds(418, 353, 89, 23);
 		panel.add(btnXoa);
+		
+	
+		
 		
 		String[] entries = { "17HCB", "18HCB"};
 		 comboBoxClass = new JComboBox(entries);
@@ -165,13 +174,32 @@ public class FormQuanLy extends JFrame {
 		tabbedPane.addTab("Thời Khóa Biểu", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(49, 57, 710, 174);
-		panel_1.add(scrollPane_1);
+		JScrollPane scrollPane_schedule = new JScrollPane();
+		scrollPane_schedule.setBounds(49, 57, 710, 174);
+		panel_1.add(scrollPane_schedule);
+		
+		//variable table schedule
+		table_schedule = new JTable();
+		scrollPane_schedule.setViewportView(table_schedule);
+		
+		String col_schedule[] = {"STT","MA MON","TEN MON", "PHONG"};
+
+		defaultTableModelLop = new DefaultTableModel(col_schedule, 0);
+		                                            // The 0 argument is number rows.
+		table_schedule = new JTable(defaultTableModelLop);
+		scrollPane_schedule.setViewportView(table_schedule);
 		
 		JLabel lblThiKhaBiu = new JLabel("THỜI KHÓA BIỂU");
 		lblThiKhaBiu.setBounds(319, 26, 172, 14);
 		panel_1.add(lblThiKhaBiu);
+		
+<<<<<<< HEAD
+=======
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"17HCB", "18HCB"}));
+		comboBox.setBounds(338, 290, 114, 22);
+		panel_1.add(comboBox);
+>>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Học Cải Thiện", null, panel_2, null);
@@ -291,6 +319,7 @@ public class FormQuanLy extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				dataComboboxLop=(String) comboBoxClass.getSelectedItem();
 				ClearTable_sinhvien();
+				//ClearTable_schedule();
 				LoadDataFornTable();
 				
 			}
@@ -344,6 +373,7 @@ public class FormQuanLy extends JFrame {
 		}
 		
 		ClearTable_sinhvien();
+		//ClearTable_schedule();
 		LoadDataFornTable();
 		
 	}
@@ -353,7 +383,9 @@ public class FormQuanLy extends JFrame {
 		defaultTableModelLop = new DefaultTableModel(col,0);
 		                                            // The 0 argument is number rows.
 		table_1.setModel(defaultTableModelLop);
+		
     }
+  
 	protected void setValueSinhVien(String stt, String mssv, String hoten, String gioitinh, String cmnd) {
 		// TODO Auto-generated method stub
 		txtmssv.setText(mssv);
@@ -380,7 +412,7 @@ public class FormQuanLy extends JFrame {
 	private void LoadDataFornTable() {
 		
 		// TODO Auto-generated method stub
-		    if(dataComboboxLop.equals("17HCB")){
+		if(dataComboboxLop.equals("17HCB")){
 		    	FileManager.DocFileSinhVien("Class17hcb.csv");
 		    }if(dataComboboxLop.equals("18HCB")){
 		    	FileManager.DocFileSinhVien("18HCB.csv");
@@ -392,6 +424,6 @@ public class FormQuanLy extends JFrame {
 
                 defaultTableModelLop.addRow(data);
 			}
-		
+			
 	}
 }
