@@ -39,7 +39,7 @@ public class FormQuanLy extends JFrame {
 	private JTextField txtcmnd;
 	private JTable table_1;
 	private JTable table_schedule;
-	private JTextField txttenlop;
+	private JTable table_caithien;
 	private JTextField txtgk;
 	private JTextField txtck;
 	private JTextField txtkhac;
@@ -48,15 +48,18 @@ public class FormQuanLy extends JFrame {
 	DefaultTableModel defaultTableModelLop;
 	DefaultTableModel defaultTableModelDiem;
 	DefaultTableModel defaultTableModeltkb;
+	DefaultTableModel defaultTableModelct;
 	public ArrayList<SinhVien>dssv;
 	public ArrayList<ThoiKhoaBieu>tkb;
 	JRadioButton rdnam, rdnu;
 	JButton btnthem;
 	JComboBox comboBoxClass;
 	JComboBox comboBoxClasstkb;
+	JComboBox comboBoxClassct;
 	DefaultComboBoxModel defaultComboBoxClass;
 	String dataComboboxLop="";
 	String dataComboboxTKB="";
+	String dataComboboxCT="";
 	private JTable table_bang_diem;
 
 
@@ -208,14 +211,30 @@ public class FormQuanLy extends JFrame {
 		tabbedPane.addTab("Học Cải Thiện", null, panel_2, null);
 		panel_2.setLayout(null);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(44, 58, 700, 220);
-		panel_2.add(scrollPane_2);
+		JScrollPane scrollPane_caithien = new JScrollPane();
+		scrollPane_caithien.setBounds(44, 58, 700, 220);
+		panel_2.add(scrollPane_caithien);
 		
 		
 		JLabel lblDanhSchHc = new JLabel("DANH SÁCH HỌC CẢI THIỆN");
 		lblDanhSchHc.setBounds(293, 22, 200, 14);
 		panel_2.add(lblDanhSchHc);
+		
+		//variable table caithien
+		table_caithien = new JTable();
+		scrollPane_caithien.setViewportView(table_caithien);
+				
+		String col_caithien[] = {"STT","MSSV","Họ Tên", "Giới Tính", "CMND"};
+
+		defaultTableModelct = new DefaultTableModel(col_caithien, 0);
+				                                            // The 0 argument is number rows.
+		table_caithien = new JTable(defaultTableModelct);
+		scrollPane_caithien.setViewportView(table_caithien);
+		
+		String[] entries2 = { "18HCB-CTT", "18HCB"};
+		comboBoxClassct = new JComboBox(entries2);
+		comboBoxClassct.setBounds(535, 320, 149, 20);
+		panel_2.add(comboBoxClassct);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Xem Ds Lớp", null, panel_3, null);
@@ -224,19 +243,6 @@ public class FormQuanLy extends JFrame {
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(45, 45, 709, 218);
 		panel_3.add(scrollPane_3);
-		
-		JButton btnxem = new JButton("Xem");
-		btnxem.setBounds(491, 327, 89, 23);
-		panel_3.add(btnxem);
-		
-		JLabel lblNewLabel_1 = new JLabel("Tên Lớp");
-		lblNewLabel_1.setBounds(123, 331, 46, 14);
-		panel_3.add(lblNewLabel_1);
-		
-		txttenlop = new JTextField();
-		txttenlop.setBounds(209, 328, 207, 20);
-		panel_3.add(txttenlop);
-		txttenlop.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
 		tabbedPane.addTab("Bảng Điểm", null, panel_4, null);
@@ -341,14 +347,34 @@ public class FormQuanLy extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				dataComboboxTKB=(String) comboBoxClasstkb.getSelectedItem();
-				System.out.println(dataComboboxTKB+"fsdjsdjfjsd");
+				System.out.println(dataComboboxTKB);
 				ClearTable_tkb();
 				LoadDataFornTableTKB();
 				
 			}
-
-			
 		});
+		
+		comboBoxClassct.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				
+				dataComboboxCT=(String) comboBoxClassct.getSelectedItem();
+				System.out.println(dataComboboxCT);
+				ClearTable_ct();
+				LoadDataFornTableCT();
+				
+			}
+
+			private void ClearTable_ct() {
+				// TODO Auto-generated method stub
+				String col_caithien[] = {"STT","MSSV","Họ Tên", "Giới Tính", "CMND"};
+				defaultTableModelct = new DefaultTableModel(col_caithien,0);
+									// The 0 argument is number rows.
+				table_caithien.setModel(defaultTableModelct);
+			
+			
+			}
+		});
+		
 		table_bang_diem.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -476,13 +502,25 @@ public class FormQuanLy extends JFrame {
 		dataComboboxTKB=(String) comboBoxClasstkb.getSelectedItem();
 		loadDataTKB();
 		loadDataDiem();
+		loadDataCT();
 		System.out.println(dataComboboxLop);
 		dssv=new ArrayList<>();
 		LoadDataFornTable();
 		LoadDataFornTableTKB();
+		LoadDataFornTableCT();
 		// TODO Auto-generated method stub
 		
 	}
+	private void loadDataCT() {
+		// TODO Auto-generated method stub
+		if(dataComboboxCT.equals("18HCB-CTT")){
+			FileManager.DocFileThoiKhoaBieu("18HCB-CTT.csv");
+		}
+		if(dataComboboxCT.equals("18HCB")){
+			FileManager.DocFileThoiKhoaBieu("18HCB.csv");
+		}
+	}
+
 	private void loadDataDiem() {
 		// TODO Auto-generated method stub
 		for(BangDiem sv:ModelManager.BD){
@@ -545,6 +583,23 @@ public class FormQuanLy extends JFrame {
 				Object[] data = {tkb.getSTT()+"",tkb.getMaMon(), tkb.getTen(), tkb.getPhong()};
 
                 defaultTableModeltkb.addRow(data);
+			}
+			
+	}
+	private void LoadDataFornTableCT() {
+		
+		// TODO Auto-generated method stub
+		if(dataComboboxCT.equals("18HCB-CTT")){
+		    	FileManager.DocFileSinhVien("18HCB-CTT.csv");
+		    }if(dataComboboxCT.equals("18HCB")){
+		    	FileManager.DocFileSinhVien("18HCB.csv");
+		    }
+			
+			for(SinhVien sv:ModelManager.DSSV){
+				
+				Object[] data = {sv.getSTT()+"",sv.getMSSV(), sv.getHoten(), sv.getGioitinh(),sv.getCMND()};
+
+				defaultTableModelct.addRow(data);
 			}
 			
 	}
