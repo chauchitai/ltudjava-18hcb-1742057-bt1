@@ -16,8 +16,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import IO_File.FileManager;
+import Model.BangDiem;
 import Model.ModelManager;
 import Model.SinhVien;
+import Model.ThoiKhoaBieu;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -44,13 +46,18 @@ public class FormQuanLy extends JFrame {
 	private JTextField txttong;
 	private JTextField txtlop;
 	DefaultTableModel defaultTableModelLop;
+	DefaultTableModel defaultTableModelDiem;
+	DefaultTableModel defaultTableModeltkb;
 	public ArrayList<SinhVien>dssv;
+	public ArrayList<ThoiKhoaBieu>tkb;
 	JRadioButton rdnam, rdnu;
 	JButton btnthem;
 	JComboBox comboBoxClass;
+	JComboBox comboBoxClasstkb;
 	DefaultComboBoxModel defaultComboBoxClass;
 	String dataComboboxLop="";
-	String dataComboboxTkb="";
+	String dataComboboxTKB="";
+	private JTable table_bang_diem;
 
 
 	/**
@@ -138,22 +145,11 @@ public class FormQuanLy extends JFrame {
 		
 		//variable table student
 		table_1 = new JTable();
-<<<<<<< HEAD
-<<<<<<< HEAD
-		scrollPane.setViewportView(table_1);
-	
-		String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
-=======
 		scrollPane_Student.setViewportView(table_1);
-		
-		String col_student[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
->>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
-=======
+		String col_student[] = {"STT","MSSV","Họ Tên", "Giới Tính", "CMND"};
 		scrollPane_Student.setViewportView(table_1);
+		//String col_student[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
 		
-		String col_student[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
->>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
-
 		defaultTableModelLop = new DefaultTableModel(col_student, 0);
 		                                            // The 0 argument is number rows.
 		table_1 = new JTable(defaultTableModelLop);
@@ -163,10 +159,6 @@ public class FormQuanLy extends JFrame {
 		
 		btnthem.setBounds(214, 353, 89, 23);
 		panel.add(btnthem);
-		
-		JButton btnXoa = new JButton("Xóa");
-		btnXoa.setBounds(418, 353, 89, 23);
-		panel.add(btnXoa);
 		
 	
 		
@@ -188,30 +180,29 @@ public class FormQuanLy extends JFrame {
 		table_schedule = new JTable();
 		scrollPane_schedule.setViewportView(table_schedule);
 		
-		String col_schedule[] = {"STT","MA MON","TEN MON", "PHONG"};
+		String col_schedule[] = {"STT","Mã","Tên", "Phòng"};
 
-		defaultTableModelLop = new DefaultTableModel(col_schedule, 0);
+		defaultTableModeltkb = new DefaultTableModel(col_schedule, 0);
 		                                            // The 0 argument is number rows.
-		table_schedule = new JTable(defaultTableModelLop);
+		table_schedule = new JTable(defaultTableModeltkb);
 		scrollPane_schedule.setViewportView(table_schedule);
 		
 		JLabel lblThiKhaBiu = new JLabel("THỜI KHÓA BIỂU");
 		lblThiKhaBiu.setBounds(319, 26, 172, 14);
 		panel_1.add(lblThiKhaBiu);
 		
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
-		JComboBox comboBox = new JComboBox();
+
+		/*JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"17HCB", "18HCB"}));
 		comboBox.setBounds(338, 290, 114, 22);
-		panel_1.add(comboBox);
-<<<<<<< HEAD
->>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
-=======
->>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
+		panel_1.add(comboBox);*/
+		
+		
+		String[] entries1 = { "17HCB", "18HCB"};
+		comboBoxClasstkb = new JComboBox(entries1);
+		comboBoxClasstkb.setBounds(550, 354, 149, 20);
+		panel_1.add(comboBoxClasstkb);
+
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Học Cải Thiện", null, panel_2, null);
@@ -220,6 +211,7 @@ public class FormQuanLy extends JFrame {
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(44, 58, 700, 220);
 		panel_2.add(scrollPane_2);
+		
 		
 		JLabel lblDanhSchHc = new JLabel("DANH SÁCH HỌC CẢI THIỆN");
 		lblDanhSchHc.setBounds(293, 22, 200, 14);
@@ -249,10 +241,6 @@ public class FormQuanLy extends JFrame {
 		JPanel panel_4 = new JPanel();
 		tabbedPane.addTab("Bảng Điểm", null, panel_4, null);
 		panel_4.setLayout(null);
-		
-		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(33, 152, 691, 201);
-		panel_4.add(scrollPane_4);
 		
 		JLabel lblNewLabel_2 = new JLabel("Điểm GK");
 		lblNewLabel_2.setBounds(33, 37, 61, 14);
@@ -294,6 +282,18 @@ public class FormQuanLy extends JFrame {
 		btnsua.setBounds(315, 95, 89, 23);
 		panel_4.add(btnsua);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(33, 171, 725, 202);
+		panel_4.add(scrollPane);
+		
+		table_bang_diem = new JTable();
+		String col_diem[] = {"STT","Mã","Tên", "Diem GK", "Diem CK", "Diem Khac", "Diem Tong"};
+
+		defaultTableModelDiem = new DefaultTableModel(col_diem, 0);
+		                                            // The 0 argument is number rows.
+		table_bang_diem = new JTable(defaultTableModelDiem);
+		scrollPane.setViewportView(table_bang_diem);
+		
 		JPanel panel_5 = new JPanel();
 		tabbedPane.addTab("Thống Kê", null, panel_5, null);
 		panel_5.setLayout(null);
@@ -315,6 +315,7 @@ public class FormQuanLy extends JFrame {
 		scrollPane_5.setBounds(52, 110, 687, 213);
 		panel_5.add(scrollPane_5);
 		addControll();
+		//addControll1();
 		addEvent();
 		
 	}
@@ -330,9 +331,43 @@ public class FormQuanLy extends JFrame {
 		comboBoxClass.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				dataComboboxLop=(String) comboBoxClass.getSelectedItem();
+				
 				ClearTable_sinhvien();
-				//ClearTable_schedule();
 				LoadDataFornTable();
+				
+			}
+		});
+		comboBoxClasstkb.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				
+				dataComboboxTKB=(String) comboBoxClasstkb.getSelectedItem();
+				System.out.println(dataComboboxTKB+"fsdjsdjfjsd");
+				ClearTable_tkb();
+				LoadDataFornTableTKB();
+				
+			}
+
+			
+		});
+		table_bang_diem.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				int row=table_bang_diem.getSelectedRow();
+				int col=table_bang_diem.getSelectedColumn();
+				if(row>=0 && col>=0){
+					System.out.println(row+" "+col);
+					String stt=defaultTableModelDiem.getValueAt(row, 0).toString();
+					String mssv=defaultTableModelDiem.getValueAt(row, 1).toString();
+					String hoten=defaultTableModelDiem.getValueAt(row, 2).toString();
+					String diemgk=defaultTableModelDiem.getValueAt(row, 3).toString();
+					String diemck=defaultTableModelDiem.getValueAt(row, 4).toString();
+					String diemkh=defaultTableModelDiem.getValueAt(row, 5).toString();
+					String diemtong=defaultTableModelDiem.getValueAt(row, 6).toString();
+					
+					setValueDiem(stt,mssv,hoten,diemgk,diemck,diemkh,diemtong);
+				}
 				
 			}
 		});
@@ -358,7 +393,36 @@ public class FormQuanLy extends JFrame {
 		});
 	}
 
-	
+	 protected void setValueDiem(String stt, String mssv, String hoten, String diemgk, String diemck, String diemkh,
+			String diemtong) {
+		// TODO Auto-generated method stub
+		 txtck.setText(diemck);
+		 txtgk.setText(diemgk);
+		 txtkhac.setText(diemgk);
+		 txttong.setText(diemtong);
+		 //txtck.setText(diemck);
+		
+	}
+
+	public void ClearTable_sinhvien(){
+	    	String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+
+			defaultTableModelLop = new DefaultTableModel(col,0);
+			                                            // The 0 argument is number rows.
+			table_1.setModel(defaultTableModelLop);
+			
+	    }
+
+
+	protected void ClearTable_tkb() {
+		// TODO Auto-generated method stub
+		String col_schedule[] = {"STT","Mã","Tên", "Phòng"};
+
+		defaultTableModeltkb = new DefaultTableModel(col_schedule, 0);
+		                                            // The 0 argument is number rows.
+		table_schedule.setModel(defaultTableModeltkb);
+		
+	}
 
 	protected void xulythem() {
 		// TODO Auto-generated method stub
@@ -385,18 +449,10 @@ public class FormQuanLy extends JFrame {
 		}
 		
 		ClearTable_sinhvien();
-		//ClearTable_schedule();
 		LoadDataFornTable();
 		
 	}
-    public void ClearTable_sinhvien(){
-    	String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
-
-		defaultTableModelLop = new DefaultTableModel(col,0);
-		                                            // The 0 argument is number rows.
-		table_1.setModel(defaultTableModelLop);
-		
-    }
+   
   
 	protected void setValueSinhVien(String stt, String mssv, String hoten, String gioitinh, String cmnd) {
 		// TODO Auto-generated method stub
@@ -413,13 +469,50 @@ public class FormQuanLy extends JFrame {
 	}
 
 	private void addControll() {
+		FileManager fileManager=new FileManager();
+		fileManager.DocFileDiem("BangDiem.csv");
+		
 		dataComboboxLop=(String) comboBoxClass.getSelectedItem();
+		dataComboboxTKB=(String) comboBoxClasstkb.getSelectedItem();
+		loadDataTKB();
+		loadDataDiem();
 		System.out.println(dataComboboxLop);
 		dssv=new ArrayList<>();
 		LoadDataFornTable();
+		LoadDataFornTableTKB();
 		// TODO Auto-generated method stub
 		
 	}
+	private void loadDataDiem() {
+		// TODO Auto-generated method stub
+		for(BangDiem sv:ModelManager.BD){
+			
+			Object[] data = {sv.STT+"",sv.MSSV, sv.Hoten, sv.DiemGK+"",sv.DiemCK+"",sv.Diemkhac+"",sv.Tong+""};
+
+            defaultTableModelDiem.addRow(data);
+		}
+	}
+
+	private void loadDataTKB() {
+		// TODO Auto-generated method stub
+		if(dataComboboxTKB.equals("17HCB")){
+			FileManager.DocFileThoiKhoaBieu("Tkb17HCB.csv");
+		}
+		if(dataComboboxTKB.equals("18HCB")){
+			FileManager.DocFileThoiKhoaBieu("Tkb18HCB.csv");
+			
+		}
+	}
+
+//	private void addControll1() {
+//		dataComboboxTkb=(String) comboBoxClass.getSelectedItem();
+//		System.out.println(dataComboboxTkb);
+//		tkb=new ArrayList<>();
+//		LoadDataFornTable();
+//		LoadDataFornTableTKB();
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	private void LoadDataFornTable() {
 		
@@ -435,6 +528,23 @@ public class FormQuanLy extends JFrame {
 				Object[] data = {sv.getSTT()+"",sv.getMSSV(), sv.getHoten(), sv.getGioitinh(),sv.getCMND()};
 
                 defaultTableModelLop.addRow(data);
+			}
+			
+	}
+	private void LoadDataFornTableTKB() {
+	
+		// TODO Auto-generated method stub
+		if(dataComboboxTKB.equals("17HCB")){
+		    	FileManager.DocFileThoiKhoaBieu("Tkb17HCB.csv");
+		    }if(dataComboboxTKB.equals("18HCB")){
+		    	FileManager.DocFileThoiKhoaBieu("Tkb18HCB.csv");
+		    }
+			
+			for(ThoiKhoaBieu tkb:ModelManager.TKB){
+				
+				Object[] data = {tkb.getSTT()+"",tkb.getMaMon(), tkb.getTen(), tkb.getPhong()};
+
+                defaultTableModeltkb.addRow(data);
 			}
 			
 	}

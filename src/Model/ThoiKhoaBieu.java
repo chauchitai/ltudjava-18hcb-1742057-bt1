@@ -3,7 +3,9 @@ package Model;
 public class ThoiKhoaBieu {
 	public int STT ;
 	public String MaMon,Ten,Phong;
-	
+	public int getSTT() {
+		return STT;
+	}
 	public String getMaMon() {
 		return MaMon;
 	}
@@ -28,13 +30,13 @@ public class ThoiKhoaBieu {
 		Phong = phong;
 	}
 
-	public void setSTT(int sTT) {
-		STT = sTT;
-	}
+	//public void setSTT(int sTT) {
+		//STT = sTT;
+	//}
 
-	int getSTT() {
-		return STT;
-	}
+	//int getSTT() {
+		//return STT;
+	//}
 
 	public ThoiKhoaBieu(int sTT, String maMon, String ten, String phong) {
 		super();
