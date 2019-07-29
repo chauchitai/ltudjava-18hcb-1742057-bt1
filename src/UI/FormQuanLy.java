@@ -139,9 +139,15 @@ public class FormQuanLy extends JFrame {
 		//variable table student
 		table_1 = new JTable();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		scrollPane.setViewportView(table_1);
 	
 		String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+=======
+		scrollPane_Student.setViewportView(table_1);
+		
+		String col_student[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+>>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
 =======
 		scrollPane_Student.setViewportView(table_1);
 		
@@ -194,11 +200,17 @@ public class FormQuanLy extends JFrame {
 		panel_1.add(lblThiKhaBiu);
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"17HCB", "18HCB"}));
 		comboBox.setBounds(338, 290, 114, 22);
 		panel_1.add(comboBox);
+<<<<<<< HEAD
+>>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
+=======
 >>>>>>> d993f9dd0ddcaec4d6307d699cb150d49d26889c
 		
 		JPanel panel_2 = new JPanel();
