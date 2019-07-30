@@ -14,6 +14,7 @@ import Model.ModelManager;
 import Model.TaiKhoan;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -83,7 +84,8 @@ public class Form_Login extends JFrame {
 		btbdoimk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			FormDoiMK  MK= new FormDoiMK();
-			MK.show();
+			MK.setVisible(true);
+			
 			}
 		});
 		btbdoimk.setBounds(201, 182, 123, 23);
@@ -110,11 +112,23 @@ public class Form_Login extends JFrame {
 				String username=txtusername.getText().trim();
 				String password=txtpassword.getText().trim();
 				boolean kt=CheckLogin(username,password);
-				if(kt) {
-					System.out.println("LOGIN THANH CONG");	
-				
+				int type=CheckType(username);
+				if(kt) {				
+					JOptionPane.showMessageDialog(null, "LOGIN THÀNH CÔNG");
+					if (type == 1)
+					{
+						FormQuanLy  QL= new FormQuanLy();
+						QL.setVisible(true);
+					}
+					else
+					{
+						FromSinhVien  SV= new FromSinhVien();
+						SV.setVisible(true);
+					}
+					
 				}else {
-					System.out.println("LOGIN THAT BAI");
+					
+					JOptionPane.showMessageDialog(null, "LOGIN THẤT BẠI");
 				}
 			}
 		});
@@ -136,4 +150,21 @@ public class Form_Login extends JFrame {
 		}
 		return false;
 	}
+	
+	private int CheckType(String username) {
+		// TODO Auto-generated method stub
+		if(ModelManager.DSTK.size()>0) {
+			for(TaiKhoan tk:ModelManager.DSTK)
+			{
+				if(tk.getUsername().equals(username))
+				{
+					return tk.getType();
+				}
+			}
+			return 0;
+		}
+		return 0;
+	}
+	
+	
 }

@@ -208,7 +208,7 @@ public class FormQuanLy extends JFrame {
 
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Học Cải Thiện", null, panel_2, null);
+		tabbedPane.addTab("Danh Sách Lớp", null, panel_2, null);
 		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane_caithien = new JScrollPane();
@@ -216,7 +216,7 @@ public class FormQuanLy extends JFrame {
 		panel_2.add(scrollPane_caithien);
 		
 		
-		JLabel lblDanhSchHc = new JLabel("DANH SÁCH HỌC CẢI THIỆN");
+		JLabel lblDanhSchHc = new JLabel("DANH SÁCH LỚP");
 		lblDanhSchHc.setBounds(293, 22, 200, 14);
 		panel_2.add(lblDanhSchHc);
 		
@@ -233,11 +233,12 @@ public class FormQuanLy extends JFrame {
 		
 		String[] entries2 = { "18HCB-CTT", "18HCB"};
 		comboBoxClassct = new JComboBox(entries2);
+		comboBoxClassct.setModel(new DefaultComboBoxModel(new String[] {"18HCB", "18HCB-CTT"}));
 		comboBoxClassct.setBounds(535, 320, 149, 20);
 		panel_2.add(comboBoxClassct);
 		
 		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("Xem Ds Lớp", null, panel_3, null);
+		tabbedPane.addTab("Học Cải Thiện", null, panel_3, null);
 		panel_3.setLayout(null);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
