@@ -133,10 +133,10 @@ public class FileManager {
 					String []arr=line.split(",");
 					if(arr.length>0) {
 	                    int stt=Integer.parseInt(arr[0]);
-	                    int diemGK=Integer.parseInt(arr[3]);
-	                    int diemCK=Integer.parseInt(arr[4]);
-	                    int diemkhac=Integer.parseInt(arr[5]);
-	                    int tong=Integer.parseInt(arr[6]);
+	                    float diemGK=Float.parseFloat(arr[3]);
+	                    float diemCK=Float.parseFloat(arr[4]);
+	                    float diemkhac=Float.parseFloat(arr[5]);
+	                    float tong=Float.parseFloat(arr[6]);
 	                 
 						BangDiem bd = new BangDiem (stt,diemGK,diemCK,diemkhac,tong,arr[1],arr[2]);
 						ModelManager.BD.add(bd);

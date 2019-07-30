@@ -388,10 +388,11 @@ public class FormQuanLy extends JFrame {
 					String stt=defaultTableModelDiem.getValueAt(row, 0).toString();
 					String mssv=defaultTableModelDiem.getValueAt(row, 1).toString();
 					String hoten=defaultTableModelDiem.getValueAt(row, 2).toString();
-					String diemgk=defaultTableModelDiem.getValueAt(row, 3).toString();
-					String diemck=defaultTableModelDiem.getValueAt(row, 4).toString();
-					String diemkh=defaultTableModelDiem.getValueAt(row, 5).toString();
-					String diemtong=defaultTableModelDiem.getValueAt(row, 6).toString();
+					float diemgk= Float.valueOf(defaultTableModelDiem.getValueAt(row, 3).toString());
+					float diemck= Float.valueOf(defaultTableModelDiem.getValueAt(row, 4).toString());
+					float diemkh= Float.valueOf(defaultTableModelDiem.getValueAt(row, 5).toString());
+					float diemtong= Float.valueOf(defaultTableModelDiem.getValueAt(row, 6).toString());
+				
 					
 					setValueDiem(stt,mssv,hoten,diemgk,diemck,diemkh,diemtong);
 				}
@@ -420,14 +421,13 @@ public class FormQuanLy extends JFrame {
 		});
 	}
 
-	 protected void setValueDiem(String stt, String mssv, String hoten, String diemgk, String diemck, String diemkh,
-			String diemtong) {
+	 protected void setValueDiem(String stt, String mssv, String hoten, float diemgk, float diemck, float diemkh,
+			 float diemtong) {
 		// TODO Auto-generated method stub
-		 txtck.setText(diemck);
-		 txtgk.setText(diemgk);
-		 txtkhac.setText(diemgk);
-		 txttong.setText(diemtong);
-		 //txtck.setText(diemck);
+		 txtck.setText(String.valueOf(diemck));
+		 txtgk.setText(String.valueOf(diemgk));
+		 txtkhac.setText(String.valueOf(diemkh));
+		 txttong.setText(String.valueOf(diemtong));
 		
 	}
 
