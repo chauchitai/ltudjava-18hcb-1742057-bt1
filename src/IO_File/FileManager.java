@@ -81,7 +81,35 @@ public class FileManager {
 		}
 		return false;
 	}
-	
+	public static boolean GhiFileDiem(String path){
+		try {
+			FileOutputStream fileOutputStream=new FileOutputStream(path);
+			OutputStreamWriter outputStreamWriter=new OutputStreamWriter(fileOutputStream, "UTF-8");
+			BufferedWriter bufferedWriter=new BufferedWriter(outputStreamWriter);
+			String line="STT,MSSV,Hoten,DiemGK,DiemCK,DiemKhac,Tong"+"\n";
+			bufferedWriter.write(line);
+			for(BangDiem bd:ModelManager.BD){
+				System.out.println(bd.Hoten);
+				line=bd.getSTT()+","+bd.getMSSV()+","+bd.getHoten()+","+bd.getDiemGK()+","+bd.getDiemCK()+","+bd.getDiemkhac()+","+bd.getTong()+"\n";
+				bufferedWriter.write(line);
+			}
+			bufferedWriter.close();
+			outputStreamWriter.close();
+			fileOutputStream.close();
+			
+			
+			return true;
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+		}
+		return false;
+	}
 	
 	public static boolean DocFileThoiKhoaBieu(String path) {
 		if(ModelManager.TKB.size()>0) {
@@ -120,6 +148,7 @@ public class FileManager {
 	public static boolean DocFileDiem(String path) {
 		if(ModelManager.BD.size()>0) {
 			ModelManager.BD.clear();
+			
 		}
 		int count=0;
 		try {

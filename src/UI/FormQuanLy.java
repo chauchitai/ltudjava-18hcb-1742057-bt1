@@ -286,6 +286,35 @@ public class FormQuanLy extends JFrame {
 		txttong.setColumns(10);
 		
 		JButton btnsua = new JButton("Sửa");
+		btnsua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//float diemGK=Float.parseFloat(txtdiemgk.getText().trim());
+				//String mssv=txtmssv.getText().trim();
+				// if (txtdiemck.getText().length() != 0) {
+			         int r = table_bang_diem.getSelectedRow();
+			          BangDiem b =new BangDiem();
+			        
+			            b.setDiemCK(Integer.parseInt(defaultTableModelDiem.getValueAt(r, 3).toString()));
+			            b.setDiemGK(Integer.parseInt(defaultTableModelDiem.getValueAt(r, 4).toString()));
+			            b.setDiemkhac(Integer.parseInt(defaultTableModelDiem.getValueAt(r, 5).toString()));
+			            
+			            //b.setTen(tensv.getText());
+			            //b.setLop(lop.getText());
+			            //b.setDc(diachi.getText());
+
+			           
+			           // DocFileDiem.GhiFileDiem( "SV.DAT");
+			          //.setValueAt(b.getID(), r, 0);
+			          //  model1.setValueAt(b.getTen(), r, 1);
+			          //  model1.setValueAt(b.getLop(), r, 2);
+			          //  model1.setValueAt(b.getDc(), r, 3);
+			            
+			           
+			         }
+			//}
+
+		
+		});
 		btnsua.setBounds(315, 95, 89, 23);
 		panel_4.add(btnsua);
 		
@@ -604,4 +633,5 @@ public class FormQuanLy extends JFrame {
 			}
 			
 	}
+
 }
