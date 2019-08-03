@@ -16,6 +16,7 @@ import Model.SinhVien;
 import Model.ThoiKhoaBieu;
 import Model.TaiKhoan;
 import Model.BangDiem;
+import Model.CaiThien;
 
 public class FileManager {
 
@@ -62,6 +63,35 @@ public class FileManager {
 			for(SinhVien sv:ModelManager.DSSV){
 				System.out.println(sv.Hoten);
 				line=sv.getSTT()+","+sv.getMSSV()+","+sv.getHoten()+","+sv.getGioitinh()+","+sv.getCMND()+"\n";
+				bufferedWriter.write(line);
+			}
+			bufferedWriter.close();
+			outputStreamWriter.close();
+			fileOutputStream.close();
+			
+			
+			return true;
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+		}
+		return false;
+	}
+	public static boolean GhiFileBangDiem(String path,ArrayList<BangDiem>ds){
+		try {
+			FileOutputStream fileOutputStream=new FileOutputStream(path);
+			OutputStreamWriter outputStreamWriter=new OutputStreamWriter(fileOutputStream, "UTF-8");
+			BufferedWriter bufferedWriter=new BufferedWriter(outputStreamWriter);
+			String line="STT,MSSV,Hoten,DiemGK,DiemCK,DiemKhac,Tong"+"\n";
+			bufferedWriter.write(line);
+			for(BangDiem b:ds){
+				//System.out.println(sv.Hoten);
+				line=b.getSTT()+","+b.getMSSV()+","+b.getHoten()+","+b.getDiemGK()+","+b.getDiemCK()+","+b.getDiemkhac()+","+b.getTong()+"\n";
 				bufferedWriter.write(line);
 			}
 			bufferedWriter.close();
@@ -185,6 +215,39 @@ public class FileManager {
 		return false;
 	}
 	
+	public static boolean DocFileTaiCT(String path) {
+		if(ModelManager.DSTK.size()>0) {
+			ModelManager.DSTK=new ArrayList<>();
+		}
+		int count=0;
+		try {
+			FileInputStream fileInputStream=new FileInputStream(path);
+			InputStreamReader inputStreamReader=new InputStreamReader(fileInputStream,"UTF-8");
+			BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
+			String line=bufferedReader.readLine();
+			while(line!=null) {
+				count ++;
+				if(count>=2) {
+					String []arr=line.split(",");
+					if(arr.length>0) {
+	                    int type=Integer.parseInt(arr[2]);
+						TaiKhoan tk=new TaiKhoan(arr[0], arr[1], type);
+						ModelManager.DSTK.add(tk);
+					}
+				}
+				
+				line=bufferedReader.readLine();
+			}
+			return true;
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 	public static boolean DocFileTaiKhoan(String path) {
 		if(ModelManager.DSTK.size()>0) {
 			ModelManager.DSTK=new ArrayList<>();
@@ -203,6 +266,40 @@ public class FileManager {
 	                    int type=Integer.parseInt(arr[2]);
 						TaiKhoan tk=new TaiKhoan(arr[0], arr[1], type);
 						ModelManager.DSTK.add(tk);
+					}
+				}
+				
+				line=bufferedReader.readLine();
+			}
+			return true;
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public static boolean DocFileCT(String path) {
+		if(ModelManager.DSCT.size()>0) {
+			ModelManager.DSCT=new ArrayList<>();
+		}
+		int count=0;
+		try {
+			FileInputStream fileInputStream=new FileInputStream(path);
+			InputStreamReader inputStreamReader=new InputStreamReader(fileInputStream,"UTF-8");
+			BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
+			String line=bufferedReader.readLine();
+			while(line!=null) {
+				count ++;
+				if(count>=2) {
+					String []arr=line.split(",");
+					if(arr.length>0) {
+	                    int stt=Integer.parseInt(arr[0]);
+	                    //CaiThien(int sTT, String mSSV, String hoten, String gioitinh, String cMND)
+						CaiThien tk=new CaiThien(stt,arr[1], arr[2], arr[3],arr[4]);
+						ModelManager.DSCT.add(tk);
 					}
 				}
 				

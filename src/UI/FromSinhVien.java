@@ -2,17 +2,31 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import IO_File.FileManager;
+import Model.ModelManager;
+import Model.SinhVien;
+
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+
 
 public class FromSinhVien extends JFrame {
 
 	private JPanel contentPane;
-
+	private JTextField textField;
+	private JTable table;
+	DefaultTableModel defaultTableModelsv;
+	public ArrayList<SinhVien>dssv;
 	/**
 	 * Launch the application.
 	 */
@@ -42,8 +56,63 @@ public class FromSinhVien extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(37, 24, 810, 372);
+		scrollPane.setBounds(37, 83, 816, 313);
 		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		String col_student[] = {"STT","MSSV","Họ Tên", "Giới Tính", "CMND"};
+		defaultTableModelsv = new DefaultTableModel(col_student, 0);
+		table = new JTable(defaultTableModelsv);
+		scrollPane.setViewportView(table);
+		JLabel lblTn = new JLabel("Tên :");
+		lblTn.setBounds(37, 29, 46, 14);
+		contentPane.add(lblTn);
+		
+		JButton btnNewButton = new JButton("Tìm Kiếm");
+		btnNewButton.setBounds(317, 25, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		textField = new JTextField();
+		textField.setBounds(83, 26, 201, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
 	}
+	public void ClearTable_sinhvien(){
+    	String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+
+		defaultTableModelsv = new DefaultTableModel(col,0);
+		                                            // The 0 argument is number rows.
+		table.setModel(defaultTableModelsv);
+		
+    }
+private void LoadDataFornTable() {
+		
+		// TODO Auto-generated method stub
+		
+		    	FileManager.DocFileSinhVien("Class17hcb.csv");
+		    
+		    //	FileManager.DocFileSinhVien("18HCB.csv");
+		   
+			
+			for(SinhVien sv:ModelManager.DSSV){
+				
+				Object[] data = {sv.getSTT()+"",sv.getMSSV(), sv.getHoten(), sv.getGioitinh(),sv.getCMND()};
+
+                defaultTableModelsv.addRow(data);
+			}
+			
+	}
+private void addControll() {
+	FileManager fileManager=new FileManager();
+	fileManager.DocFileSinhVien("Class17hcb.csv");
+	fileManager.DocFileCT("18HCB-CTT001.csv");
+
+	dssv=new ArrayList<>();
+	LoadDataFornTable();
+	ClearTable_sinhvien();
+	// TODO Auto-generated method stub
+	
+}
 
 }

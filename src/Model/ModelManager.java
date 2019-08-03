@@ -7,14 +7,17 @@ public class ModelManager {
 	public static ArrayList<TaiKhoan>DSTK=new ArrayList<>();
 	public static ArrayList<ThoiKhoaBieu>TKB=new ArrayList<>();
 	public static ArrayList<BangDiem>BD=new ArrayList<>();
+	public static ArrayList<CaiThien>DSCT=new ArrayList<>();
 	public static ArrayList<SinhVien> getDSSV() {
 		return DSSV;
 	}
 
+	public static void setDSCT(ArrayList<SinhVien> DSCT) {
+		DSCT = DSCT;
+	}
 	public static void setDSSV(ArrayList<SinhVien> dSSV) {
 		DSSV = dSSV;
 	}
-	
 	public static ArrayList<ThoiKhoaBieu> getTKB() {
 		return TKB;
 	}
