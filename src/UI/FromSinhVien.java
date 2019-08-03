@@ -2,11 +2,15 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import IO_File.FileManager;
@@ -59,7 +63,7 @@ public class FromSinhVien extends JFrame {
 		scrollPane.setBounds(37, 83, 816, 313);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
+		//table = new JTable();
 		scrollPane.setViewportView(table);
 		String col_student[] = {"STT","MSSV","Họ Tên", "Giới Tính", "CMND"};
 		defaultTableModelsv = new DefaultTableModel(col_student, 0);
@@ -77,7 +81,27 @@ public class FromSinhVien extends JFrame {
 		textField.setBounds(83, 26, 201, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		addEvent();
 	}
+	
+	
+	private void addEvent() {
+	
+		// TODO Auto-generated method stub
+		
+	
+				ClearTable_sinhvien();
+				LoadDataFornTable();
+				
+			
+
+		
+			
+
+	}
+	
+	
+	
 	public void ClearTable_sinhvien(){
     	String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
 
@@ -86,6 +110,17 @@ public class FromSinhVien extends JFrame {
 		table.setModel(defaultTableModelsv);
 		
     }
+	
+	
+	
+	private void addControll() {
+		dssv=new ArrayList<>();
+		LoadDataFornTable();
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 private void LoadDataFornTable() {
 		
 		// TODO Auto-generated method stub
@@ -103,16 +138,6 @@ private void LoadDataFornTable() {
 			}
 			
 	}
-private void addControll() {
-	FileManager fileManager=new FileManager();
-	fileManager.DocFileSinhVien("Class17hcb.csv");
-	fileManager.DocFileCT("18HCB-CTT001.csv");
 
-	dssv=new ArrayList<>();
-	LoadDataFornTable();
-	ClearTable_sinhvien();
-	// TODO Auto-generated method stub
-	
-}
 
 }

@@ -66,9 +66,9 @@ public class FormQuanLy extends JFrame {
 	private JTable table_bang_diem;
 	   BangDiem bangdiem =null;
 	   private JTable tablecaithien;
-	   private JTextField textField;
-	   private JTextField txtms;
-	   private JTextField textField_2;
+	   //private JTextField textField;
+	  // private JTextField txtms;
+	   //private JTextField textField_2;
 
 
 	/**
@@ -219,60 +219,15 @@ public class FormQuanLy extends JFrame {
 		panel_3.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(47, 106, 722, 174);
+		scrollPane_1.setBounds(35, 35, 722, 174);
 		panel_3.add(scrollPane_1);
 		
+		String col[] = {"STT","MSSV","HO TEN", "GIOI TINH", "CMND"};
+
+		defaultTablecaithien = new DefaultTableModel(col, 0);
+		                                            // The 0 argument is number rows.
 		tablecaithien = new JTable(defaultTablecaithien);
 		scrollPane_1.setViewportView(tablecaithien);
-		
-		
-		
-		JLabel lblTn_1 = new JLabel("Tên");
-		lblTn_1.setBounds(47, 24, 46, 14);
-		panel_3.add(lblTn_1);
-		
-		JLabel lblNewLabel_7 = new JLabel("Mã Số");
-		lblNewLabel_7.setBounds(47, 66, 46, 14);
-		panel_3.add(lblNewLabel_7);
-		
-		JLabel lblNewLabel_10 = new JLabel("Giới Tính");
-		lblNewLabel_10.setBounds(376, 24, 46, 14);
-		panel_3.add(lblNewLabel_10);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
-		rdbtnNewRadioButton.setBounds(451, 20, 109, 23);
-		panel_3.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Nữ");
-		rdbtnNewRadioButton_1.setBounds(562, 20, 109, 23);
-		panel_3.add(rdbtnNewRadioButton_1);
-		
-		JLabel lblNewLabel_11 = new JLabel("CMND");
-		lblNewLabel_11.setBounds(376, 66, 46, 14);
-		panel_3.add(lblNewLabel_11);
-		
-		textField = new JTextField();
-		textField.setBounds(125, 21, 201, 20);
-		panel_3.add(textField);
-		textField.setColumns(10);
-		
-		txtms = new JTextField();
-		txtms.setBounds(125, 63, 201, 20);
-		panel_3.add(txtms);
-		txtms.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(451, 63, 181, 20);
-		panel_3.add(textField_2);
-		textField_2.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Thêm");
-		btnNewButton.setBounds(212, 325, 89, 23);
-		panel_3.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Xóa");
-		btnNewButton_1.setBounds(443, 325, 89, 23);
-		panel_3.add(btnNewButton_1);
 
 		
 		JPanel panel_2 = new JPanel();
@@ -288,7 +243,7 @@ public class FormQuanLy extends JFrame {
 		lblDanhSchHc.setBounds(293, 22, 200, 14);
 		panel_2.add(lblDanhSchHc);
 		
-		//variable table caithien
+		//variable table bangdiem
 		table_caithien = new JTable();
 		scrollPane_caithien.setViewportView(table_caithien);
 				
@@ -298,7 +253,7 @@ public class FormQuanLy extends JFrame {
 				                                            // The 0 argument is number rows.
 		table_caithien = new JTable(defaultTableModelct);
 		scrollPane_caithien.setViewportView(table_caithien);
-		String col_caithien1[] = {"STT","MSSV","Ho Tên", "gioi tinh", "CMND"};
+		String col_caithien1[] = {"STT1","MSSV","Ho Tên", "gioi tinh", "CMND"};
 
 		defaultTablecaithien = new DefaultTableModel(col_caithien1, 0);
 		String[] entries2 = { "18HCB-CTT", "18HCB"};
@@ -310,7 +265,7 @@ public class FormQuanLy extends JFrame {
 		
 		//String col_caithien1[] = {"STT","MSSV","Ho Tên", "gioi tinh", "CMND"};
 
-		//defaultTablecaithien = new DefaultTableModel(col_caithien1, 0);
+		defaultTablecaithien = new DefaultTableModel(col_caithien1, 0);
 		
 		JPanel panel_4 = new JPanel();
 		tabbedPane.addTab("Bảng Điểm", null, panel_4, null);
@@ -654,6 +609,7 @@ public class FormQuanLy extends JFrame {
 		LoadDataFornTable();
 		LoadDataFornTableTKB();
 		LoadDataFornTableCT();
+		
 		// TODO Auto-generated method stub
 		
 	}
@@ -692,7 +648,7 @@ public class FormQuanLy extends JFrame {
 		lblRot.setText(rot+" ( "+phantramrot+" % )");
 	}
 	private void loadDataCaiThien() {
-		// TODO Auto-generated method stub , cai ham nay load diem ak m , t dat nham thanh load Ct la sao, cai nay` de load bang diem , t dat nham` ten thanh CT
+		// TODO Auto-generated method stub , 
 		for(CaiThien ct:ModelManager.DSCT){
 			
 			Object[] data = {ct.STT+"", ct.CMND,ct.Hoten, ct.Gioitinh, ct.CMND};
@@ -773,4 +729,5 @@ public class FormQuanLy extends JFrame {
 			}
 			
 	}
+	
 }

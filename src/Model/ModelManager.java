@@ -12,7 +12,7 @@ public class ModelManager {
 		return DSSV;
 	}
 
-	public static void setDSCT(ArrayList<SinhVien> DSCT) {
+	public static void setDSCT(ArrayList<CaiThien> DSCT) {
 		DSCT = DSCT;
 	}
 	public static void setDSSV(ArrayList<SinhVien> dSSV) {

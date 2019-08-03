@@ -315,4 +315,33 @@ public class FileManager {
 		}
 		return false;
 	}
+	public static boolean GhiFileTK(String path,ArrayList<TaiKhoan>ds){
+		try {
+			FileOutputStream fileOutputStream=new FileOutputStream(path);
+			OutputStreamWriter outputStreamWriter=new OutputStreamWriter(fileOutputStream, "UTF-8");
+			BufferedWriter bufferedWriter=new BufferedWriter(outputStreamWriter);
+			String line="UserName,PassWord,Type"+"\n";
+			bufferedWriter.write(line);
+			for(TaiKhoan b:ds){
+				//System.out.println(sv.Hoten);
+				line=b.getUsername()+","+b.getPassword()+","+b.getType()+"\n";
+				bufferedWriter.write(line);
+			}
+			bufferedWriter.close();
+			outputStreamWriter.close();
+			fileOutputStream.close();
+			
+			
+			return true;
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+		}
+		return false;
+	}
 }
